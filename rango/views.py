@@ -9,4 +9,7 @@ def index(request):
 # Create your views here.
 
 def about(request): 
-	return HttpResponse("<a href=\"/rango/\"> Index</a>")
+
+	context_dict = {'author_name': "Peter"}
+	return render(request, 'rango/about.html', context=context_dict)
+	# return HttpResponse("<a href=\"/rango/\"> Index</a>")
