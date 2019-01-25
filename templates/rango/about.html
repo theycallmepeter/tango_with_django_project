@@ -3,16 +3,22 @@
 {% load staticfiles %} <!-- New line -->
 
 <html>
-
+	
 	<head>
 		<title>Rango</title>
 	</head>
 
 	<body>
 		<div>
+			Rango says here is the about page.
+		</div>
+
+		<div>
+						<a href="/rango/"> Index</a>
+		</div>
+		<div>
 			This tutorial has been put together by  <br />
 			<strong>{{ author_name }}</strong><br />
-			<a href="/rango/"> Index</a>
 		</div>
 		<div>
 			<img src="{% static "images/john.png" %}"
