@@ -1,6 +1,29 @@
-<!DOCTYPE html>
+{% extends 'rango/base.html' %}
 
-{% load staticfiles %} <!-- New line -->
+{% load staticfiles %}
+
+{% block title_block %}
+	About
+{% endblock %}
+
+{% block body_block%}
+	<div>
+		Rango says here is the about page.
+	</div>
+	<div>
+		This tutorial has been put together by  <br />
+		<strong>{{ author_name }}</strong><br />
+	</div>
+	<div>
+		<img src="{% static "images/john.png" %}"
+		alt="Picture of John" />
+		 <img src="{{ MEDIA_URL}}images/cat.jpg" />
+	</div>
+{% endblock %}
+
+<!-- <!DOCTYPE html>
+
+{% load staticfiles %} 
 
 <html>
 	
@@ -22,8 +45,8 @@
 		</div>
 		<div>
 			<img src="{% static "images/john.png" %}"
-			alt="Picture of John" /> <!-- New line -->
+			alt="Picture of John" />
 			 <img src="{{ MEDIA_URL}}images/cat.jpg" />
 		</div>
 	</body>
-</html>
+</html> -->
