@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from rango.models import Category, Page
-from forms import CategoryForm
+from forms import CategoryForm, PageForm
 
 
 def index(request):
@@ -66,9 +66,54 @@ def add_category(request):
         form = CategoryForm(request.POST)
 
         if form.is_valid():
-            form.save(commit=True)
+            cat = form.save(commit=True)
+            print(cat, cat.slug)
             return index(request)
         else:
             print(form.errors)
 
     return render(request, 'rango/add_category.html', {'form': form})
+
+
+def add_page(request, category_name_slug):
+	try:
+		category = Category.objects.get(slug=category_name_slug)
+	except Category.DoesNotExist:
+		category = None
+	form = PageForm()
+	if request.method == 'POST':
+		form = PageForm(request.POST)
+		if form.is_valid():
+			if category:
+				page = form.save(commit=False)
+				page.category = category
+				page.views = 0
+				page.save()
+				return show_category(request, category_name_slug)
+		else:
+			print(form.errors)
+	context_dict = {'form': form, 'category': category}
+	return render(request, 'rango/add_page.html', context_dict)
+
+# def add_page(request, category_name_slug):
+# 	try:
+# 		category = Category.objects.get(slug=category_name_slug)
+# 	except Category.DoesNotExist:
+# 		category = None
+# 	form = PageForm()
+
+#     if request.method == 'POST':
+#         form = PageForm(request.POST)
+
+#         if form.is_valid():
+#         	if category:
+# 	            page = form.save(commit=True)
+# 	            page.category = category
+# 	            page.views = 0
+# 	            page.save()
+# 	            print(page, page.url)
+# 	            return show_category(request, category_name_slug)
+#         else:
+#             print(form.errors)
+#     context_dict = {'form':form, 'category':category}
+#     return render(request, 'rango/add_page.html', context_dict)
