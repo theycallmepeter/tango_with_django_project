@@ -60,6 +60,7 @@ def about(request):
 		print("TEST COOKIE WORKED!")
 		request.session.delete_test_cookie()
 	context_dict = {'author_name': "Peter"}
+	context_dict['visits'] = request.session['visits']
 	return render(request, 'rango/about.html', context=context_dict)
 	# return HttpResponse("<a href=\"/rango/\"> Index</a>")
 
